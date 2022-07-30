@@ -1,0 +1,6 @@
+*.pyc
+adrinator_back.code-workspace
+__pycache__
+venv
+database.db
+token
