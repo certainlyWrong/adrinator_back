@@ -1,7 +1,7 @@
 
 <div align="center" style="padding: 2vw">
 
-# [adrinator_project](https://github.com/certainlyWrong) backend
+# [adrinator_project](https://github.com/certainlyWrong/adrinator_project) backend
 
 [![heroku_deploy](https://github.com/certainlyWrong/adrinator_back/actions/workflows/heroku_deploy.yml/badge.svg)](https://github.com/certainlyWrong/adrinator_back/actions/workflows/heroku_deploy.yml)
 
