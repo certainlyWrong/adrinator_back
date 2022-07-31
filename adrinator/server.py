@@ -1,6 +1,7 @@
 
 import os
 from flask import Flask
+from flask_cors import cross_origin
 from adrinator.api.Iadrinator_api import IAdrinatorServer
 
 
@@ -9,7 +10,7 @@ class Server:
     Class for the gerencial server version API of the Adrinator project.
     """
     _app = Flask(__name__)
-    _api_v1: list[IAdrinatorServer] = []
+    _api: dict[str, dict[str, IAdrinatorServer]] = {}
 
     @classmethod
     def is_production(cls) -> bool:
@@ -24,21 +25,33 @@ class Server:
         """
         The method is used to initialize the APIs.
         """
-        for api in cls._api_v1:
-            api.init()
+        for version in cls._api.keys():
+            for api in cls._api[version].keys():
+                cls._api[version][api].init()
 
     # Flask capitalized the first letter of the method name.
+    @cross_origin()
     @_app.route('/<path:path>')
-    def _manager(path):
+    def manager(path: str):  # type: ignore
         """
         The method is used to greet the user.
         """
-        return f'Hello {path}'
+
+        # path to split the path in the url and get the API version
+        path_split = [i for i in path.split('/') if i != '']
+
+        match path_split[0:2]:
+            case ['v1', 'github']:
+                return {'return': 'yes'}
+            case ['production']:
+                return {'return': Server.is_production()}
+            case _:
+                return {'return': 'API not found'}
 
     @classmethod
-    def run(cls, AdrinatorApps: list[IAdrinatorServer]) -> None:
+    def run(cls, AdrinatorApps: dict[str, dict[str, IAdrinatorServer]]):
         # Instance of the AdrinatorAppV1 class.
-        cls._api_v1 = AdrinatorApps
+        cls._api = AdrinatorApps
 
         # Initialize the APIs.
         cls._init_APIs()
@@ -47,5 +60,8 @@ class Server:
         port = int(os.environ.get("PORT", 8000))
 
         # Run the server.
-        cls._app.run(host='0.0.0.0', port=port,
-                     debug=not cls.is_production())
+        cls._app.run(
+            host='0.0.0.0',
+            port=port,
+            debug=not cls.is_production()
+        )

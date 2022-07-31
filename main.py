@@ -11,7 +11,11 @@ try:
 except FileExistsError:
     pass
 
+routes = {
+    'v1': {
+        'github': Adrinator_GH_API_V1(pathTempDir)
+    }
+}
+
 # the line below is used to run the server in production mode
-Server.run(
-    [Adrinator_GH_API_V1(pathTempDir)]
-)
+Server.run(routes)  # type: ignore

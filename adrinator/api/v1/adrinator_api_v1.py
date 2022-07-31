@@ -11,8 +11,8 @@ class Adrinator_GH_API_V1(IAdrinatorServer):
 
     def __init__(self, pathTempDir: str) -> None:
         # self._conn.row_factory = sqlite3.Row
-        self._path = os.path.abspath(os.path.dirname(__file__))
-        # self._conn = sqlite3.connect(f'{self._path}/database_v1.db')
+        self._pathFile = os.path.abspath(os.path.dirname(__file__))
+        # self._conn = sqlite3.connect(f'{self._pathFile}/database_v1.db')
         self._GH_API = 'https://api.github.com/'
 
     def init(self) -> bool:
