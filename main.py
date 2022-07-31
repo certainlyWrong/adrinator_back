@@ -1,28 +1,17 @@
+
 import os
-from adrinator.adrinator_server import Server
+from adrinator.server import Server
+from adrinator.api.v1.adrinator_api_v1 import Adrinator_GH_API_V1
 
-token = None
-production = False
+# Configure and create a temporary directory for the files.
+pathTempDir = f'{os.path.abspath(os.path.dirname(__file__))}/temp'
 
-"""
-This is the main file of the Adrinator project.
-The try/except block is used to catch the exception raised when the token
-is not provided. The token is used to authenticate the user in the GitHub API.
-The production flag is used to determine if the server should run in production
-mode or not.
-"""
 try:
-    with open(os.path.join(os.path.dirname(__file__), 'token'), 'r') as f:
-        print(os.path.join(os.path.dirname(__file__), 'token'))
-        token = f.read()
-except FileNotFoundError:
-    token = os.environ.get('GH_API')
-
-    if token is None:
-        print('No token found. Please set GH_API environment.')
-        exit(1)
-
-    production = True
+    os.mkdir(pathTempDir)
+except FileExistsError:
+    pass
 
 # the line below is used to run the server in production mode
-Server.run(token, production=production)
+Server.run(
+    [Adrinator_GH_API_V1(pathTempDir)]
+)
