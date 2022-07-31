@@ -11,9 +11,11 @@ try:
 except FileExistsError:
     pass
 
+
+# Config routes for all APIs and initialize them.
 routes = {
     'v1': {
-        'github': Adrinator_GH_API_V1(pathTempDir)
+        'github': Adrinator_GH_API_V1(pathTempDir, 'certainlyWrong')
     }
 }
 

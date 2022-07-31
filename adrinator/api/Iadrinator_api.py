@@ -8,6 +8,13 @@ class IAdrinatorServer(ABC):
     """
 
     @abstractmethod
+    def get_request(self) -> dict:
+        """
+        The method is used to get the request from the API.
+        """
+        pass
+
+    @abstractmethod
     def init(self) -> bool:
         """
         The method is used to initialize the API.

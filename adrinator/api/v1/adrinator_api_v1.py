@@ -1,5 +1,7 @@
 
 import os
+
+from requests import request
 # import sqlite3
 from adrinator.api.Iadrinator_api import IAdrinatorServer
 
@@ -9,11 +11,22 @@ class Adrinator_GH_API_V1(IAdrinatorServer):
     Version 1 of the API for adrinator project.
     """
 
-    def __init__(self, pathTempDir: str) -> None:
+    def __init__(self, pathTempDir: str, user: str) -> None:
         # self._conn.row_factory = sqlite3.Row
         self._pathFile = os.path.abspath(os.path.dirname(__file__))
         # self._conn = sqlite3.connect(f'{self._pathFile}/database_v1.db')
-        self._GH_API = 'https://api.github.com/'
+        self._GH_API = 'https://api.github.com'
+        self._user = user
+
+    def get_request(self) -> dict:
+        a = request(
+            'GET',
+            f'{self._GH_API}/users/{self._user}',
+            headers={'Authorization': f'token {self._gh_token}'}
+        )
+
+        print(a.headers)
+        return a.json()
 
     def init(self) -> bool:
         self._gh_token = None

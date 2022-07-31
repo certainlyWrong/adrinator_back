@@ -31,7 +31,7 @@ class Server:
 
     # Flask capitalized the first letter of the method name.
     @cross_origin()
-    @_app.route('/<path:path>')
+    @_app.route('/<path:path>', methods=['GET'])
     def manager(path: str):  # type: ignore
         """
         The method is used to greet the user.
@@ -42,11 +42,22 @@ class Server:
 
         match path_split[0:2]:
             case ['v1', 'github']:
-                return {'return': 'yes'}
+                return {
+                    'status': 'ok',
+                    'result': Server._api['v1']['github']
+                    .get_request()
+                }
+
             case ['production']:
-                return {'return': Server.is_production()}
+                return {
+                    'status': 'ok',
+                    'production': Server.is_production()
+                }
+
             case _:
-                return {'return': 'API not found'}
+                return {
+                    'status': 'API not found'
+                }
 
     @classmethod
     def run(cls, AdrinatorApps: dict[str, dict[str, IAdrinatorServer]]):
