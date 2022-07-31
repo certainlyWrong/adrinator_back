@@ -35,6 +35,7 @@ jobs:
 
       - name: Set GH API
         run: heroku config:set GH_API=${{ secrets.API_GITHUB_TOKEN }}
+        run: heroku config:set PRODUCTION=True
 
       - name: Push to Heroku
         run: git push --set-upstream heroku main --force
