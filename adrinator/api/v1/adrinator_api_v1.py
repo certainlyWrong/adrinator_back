@@ -19,14 +19,11 @@ class Adrinator_GH_API_V1(IAdrinatorServer):
         self._user = user
 
     def get_request(self) -> dict:
-        a = request(
+        return request(
             'GET',
             f'{self._GH_API}/users/{self._user}',
             headers={'Authorization': f'token {self._gh_token}'}
-        )
-
-        print(a.headers)
-        return a.json()
+        ).json()
 
     def init(self) -> bool:
         self._gh_token = None
