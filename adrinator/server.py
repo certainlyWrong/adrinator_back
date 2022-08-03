@@ -42,11 +42,7 @@ class Server:
 
         match path_split[0:2]:
             case ['v1', 'github']:
-                return {
-                    'status': 'ok',
-                    'result': Server._api['v1']['github']
-                    .get_request(path_split[2:])
-                }
+                return Server._api['v1']['github'].get_request(path_split[2:])
 
             case ['production']:
                 return {

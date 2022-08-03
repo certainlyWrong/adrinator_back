@@ -49,7 +49,7 @@ class Adrinator_GH_API_V1(IAdrinatorServer):
     def _get_user_name(self) -> dict:
         return {
             'status': 'ok',
-            'user': self._user
+            'name': self._user
         }
 
     def _get_user_repos(self) -> dict:
