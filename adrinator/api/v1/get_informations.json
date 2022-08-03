@@ -1,0 +1,19 @@
+{
+    "github": {
+        "listOfGetInformations": [
+            "avatar_url",
+            "bio",
+            "blog",
+            "collaborators",
+            "company",
+            "created_at",
+            "followers",
+            "following",
+            "location",
+            "login",
+            "name",
+            "public_repos",
+            "total_private_repos"
+        ]
+    }
+}
