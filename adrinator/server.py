@@ -45,7 +45,7 @@ class Server:
                 return {
                     'status': 'ok',
                     'result': Server._api['v1']['github']
-                    .get_request()
+                    .get_request(path_split[2:])
                 }
 
             case ['production']:

@@ -8,7 +8,7 @@ class IAdrinatorServer(ABC):
     """
 
     @abstractmethod
-    def get_request(self) -> dict:
+    def get_request(self, requests: list[str]) -> dict:
         """
         The method is used to get the request from the API.
         """
